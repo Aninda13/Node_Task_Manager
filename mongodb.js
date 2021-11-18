@@ -9,7 +9,7 @@ const {MongoClient , ObjectID, ResumeToken } = require('mongodb');
 const connectionUrl = 'mongodb://127.0.0.1:27017';
 const databaseName = 'task-manager';
 
-
+const id = new ObjectID()
 
 MongoClient.connect(connectionUrl, { useNewUrlParser: true, useUnifiedTopology: true }, (error, client) => {
     if(error){
@@ -18,16 +18,19 @@ MongoClient.connect(connectionUrl, { useNewUrlParser: true, useUnifiedTopology: 
 
     // console.log("Connected Correctly!")
    const db =  client.db(databaseName)
+   console.log(id)
+   console.log(id.getTimestamp())
 
-//    db.collection('users').insertOne({
-//        name: 'Aninda',
-//        age : 24
-//    }, (error ,result) => {
-//         if(error){
-//             return console.log("Unable to insert user.")
-//         }
-//         console.log(result.ops)
-//    })
+   db.collection('users').insertOne({
+       _id : id,
+       name: 'Mahmudul',
+       age : 24
+   }, (error ,result) => {
+        if(error){
+            return console.log("Unable to insert user.")
+        }
+        console.log(result.ops)
+   })
    
     // db.collection('users').insertMany([
     //     {
@@ -49,26 +52,26 @@ MongoClient.connect(connectionUrl, { useNewUrlParser: true, useUnifiedTopology: 
     //     console.log(result.ops)
     // })
 
-    db.collection('tasks').insertMany([
-        {
-            description: "Physics Class",
-            completed: true
-        }, 
-        {
-            description: "LeetCode",
-            completed: true
-        },
-        {
-            description: "Eat Dinner",
-            completed: false
-        }
+    // db.collection('tasks').insertMany([
+    //     {
+    //         description: "Physics Class",
+    //         completed: true
+    //     }, 
+    //     {
+    //         description: "LeetCode",
+    //         completed: true
+    //     },
+    //     {
+    //         description: "Eat Dinner",
+    //         completed: false
+    //     }
 
-    ],(error, result) => {
-        if (error){
-            console.log("Error while inserting tasks")
-        }
-        console.log(result.ops)
-    })
+    // ],(error, result) => {
+    //     if (error){
+    //         console.log("Error while inserting tasks")
+    //     }
+    //     console.log(result.ops)
+    // })
 
 
 
