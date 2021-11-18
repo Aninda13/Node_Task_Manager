@@ -2,14 +2,10 @@ const express = require('express')
 const User = require('../models/users')
 const router = new express.Router()
 
-router.get('/test', (req, res) => {
-    res.send('From a router file')
-})
-
 
 router.post('/users', async(req,res) => {
     const user = new User(req.body)
-    
+
     try{
         await user.save()
         res.status(201).send(user)
@@ -17,9 +13,6 @@ router.post('/users', async(req,res) => {
         res.status(400).send(e)
     }
     
-    await user.save()
-
-
     // user.save().then(() => {
     //     res.status(201).send(user)
     // }).catch((e) => {

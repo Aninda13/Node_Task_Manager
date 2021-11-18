@@ -11,18 +11,70 @@ const databaseName = 'task-manager';
 
 
 
-MongoClient.connect(connectionUrl, { useNewUrlParser: true }, (error, client) => {
+MongoClient.connect(connectionUrl, { useNewUrlParser: true, useUnifiedTopology: true }, (error, client) => {
     if(error){
-        console.log('Unable to connect to the Database')
+        return console.log('Unable to connect to the Database')
     }
 
+    // console.log("Connected Correctly!")
    const db =  client.db(databaseName)
 
-   db.collection('users').insertOne({
-       name: 'Aninda',
-       age : 24
-   })
+//    db.collection('users').insertOne({
+//        name: 'Aninda',
+//        age : 24
+//    }, (error ,result) => {
+//         if(error){
+//             return console.log("Unable to insert user.")
+//         }
+//         console.log(result.ops)
+//    })
    
+    // db.collection('users').insertMany([
+    //     {
+    //         name: 'King Svedson',
+    //         age : 28
+    //     },
+    //     {
+    //         name: 'Naepoleon',
+    //         age : 48
+    //     },
+    //     {
+    //         name: 'Regi',
+    //         age : 23
+    //     } 
+    // ], (error, result) => {
+    //     if(error){
+    //         return console.log("Failed to insert many users")
+    //     }
+    //     console.log(result.ops)
+    // })
+
+    db.collection('tasks').insertMany([
+        {
+            description: "Physics Class",
+            completed: true
+        }, 
+        {
+            description: "LeetCode",
+            completed: true
+        },
+        {
+            description: "Eat Dinner",
+            completed: false
+        }
+
+    ],(error, result) => {
+        if (error){
+            console.log("Error while inserting tasks")
+        }
+        console.log(result.ops)
+    })
+
+
+
+
+
+
 })
 
 
